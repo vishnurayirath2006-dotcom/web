@@ -1,0 +1,766 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Vishnu's personal portfolio: projects, skills, and studies at Christ College Irinjalakuda.">
+  <title>Vishnu — Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --cyan: #27e2e6;
+      --cyan-light: #8af4ef;
+      --ink: #101819;
+      --paper: #f7fffd;
+      --line: rgba(16, 24, 25, .28);
+      --mono: "DM Mono", monospace;
+      --display: "Space Grotesk", sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      background: var(--cyan);
+      color: var(--ink);
+      font-family: var(--display);
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    a:focus-visible {
+      outline: 2px solid var(--ink);
+      outline-offset: 4px;
+    }
+
+    .shell {
+      width: min(1160px, calc(100% - 64px));
+      margin: 0 auto;
+    }
+
+    .topbar {
+      min-height: 76px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .logo {
+      font-size: 20px;
+      font-weight: 700;
+      letter-spacing: -1.3px;
+    }
+
+    .logo span {
+      display: inline-block;
+      width: 9px;
+      height: 9px;
+      margin-left: 2px;
+      border-radius: 50%;
+      background: var(--ink);
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+      font-family: var(--mono);
+      font-size: 10px;
+      text-transform: uppercase;
+    }
+
+    .nav a:not(.nav-contact):hover,
+    .socials a:hover {
+      text-decoration: underline;
+      text-underline-offset: 4px;
+    }
+
+    .nav-contact {
+      padding: 10px 14px;
+      border: 1px solid var(--ink);
+      border-radius: 2px;
+      transition: background 150ms ease, color 150ms ease;
+    }
+
+    .nav-contact:hover {
+      background: var(--ink);
+      color: var(--cyan);
+    }
+
+    .hero {
+      min-height: 630px;
+      padding: 70px 0 68px;
+      display: grid;
+      grid-template-columns: 1.05fr .95fr;
+      align-items: center;
+      gap: 54px;
+    }
+
+    .kicker,
+    .section-label,
+    .project-type {
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: .3px;
+      text-transform: uppercase;
+    }
+
+    .kicker {
+      margin: 0 0 21px;
+    }
+
+    .live-dot {
+      width: 8px;
+      height: 8px;
+      margin-right: 8px;
+      display: inline-block;
+      border-radius: 50%;
+      background: var(--ink);
+      box-shadow: 0 0 0 4px rgba(16, 24, 25, .12);
+    }
+
+    h1,
+    h2,
+    h3,
+    p {
+      margin-top: 0;
+    }
+
+    h1 {
+      margin-bottom: 22px;
+      font-size: clamp(82px, 13vw, 160px);
+      font-weight: 700;
+      letter-spacing: -.105em;
+      line-height: .78;
+    }
+
+    h1 span {
+      display: block;
+      margin: 13px 0 0 8px;
+      font-family: var(--mono);
+      font-size: clamp(12px, 1.4vw, 16px);
+      font-weight: 400;
+      letter-spacing: 0;
+      line-height: 1.4;
+      text-transform: uppercase;
+    }
+
+    .bio {
+      max-width: 460px;
+      margin-bottom: 27px;
+      font-size: 14px;
+      line-height: 1.8;
+    }
+
+    .bio strong {
+      font-weight: 700;
+      text-decoration: underline;
+      text-decoration-thickness: 2px;
+      text-underline-offset: 3px;
+    }
+
+    .hero-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .button {
+      min-height: 45px;
+      padding: 0 16px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 18px;
+      border: 1px solid var(--ink);
+      border-radius: 2px;
+      font-family: var(--mono);
+      font-size: 10px;
+      text-transform: uppercase;
+      transition: transform 150ms ease, background 150ms ease, color 150ms ease;
+    }
+
+    .button:hover {
+      transform: translate(-2px, -2px);
+      background: var(--ink);
+      color: var(--cyan);
+    }
+
+    .button-dark {
+      background: var(--ink);
+      color: var(--cyan);
+    }
+
+    .button-dark:hover {
+      background: transparent;
+      color: var(--ink);
+    }
+
+    .portrait-frame {
+      height: 420px;
+      position: relative;
+      margin: 0 12px 12px 0;
+      padding: 12px;
+      border: 1px solid var(--ink);
+      background: var(--cyan-light);
+      box-shadow: 12px 12px 0 var(--ink);
+    }
+
+    .portrait-frame img {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;
+      object-position: center 35%;
+      filter: grayscale(100%) contrast(1.05);
+    }
+
+    .portrait-note {
+      position: absolute;
+      right: -12px;
+      bottom: -12px;
+      padding: 12px 15px;
+      border: 1px solid var(--ink);
+      background: var(--paper);
+      font-family: var(--mono);
+      font-size: 9px;
+      line-height: 1.6;
+      text-transform: uppercase;
+    }
+
+    .portrait-stamp {
+      position: absolute;
+      top: 27px;
+      left: -23px;
+      width: 52px;
+      height: 52px;
+      display: grid;
+      place-items: center;
+      border: 1px solid var(--ink);
+      border-radius: 50%;
+      background: var(--cyan);
+      font-size: 23px;
+      transform: rotate(-12deg);
+    }
+
+    .skills {
+      min-height: 90px;
+      padding: 17px 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 22px;
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .skills-label {
+      max-width: 100px;
+      font-family: var(--mono);
+      font-size: 9px;
+      line-height: 1.6;
+      text-transform: uppercase;
+    }
+
+    .skill-list {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      gap: 8px;
+    }
+
+    .skill-list span {
+      padding: 8px 11px;
+      border: 1px solid var(--ink);
+      border-radius: 2px;
+      font-size: 10px;
+      font-weight: 600;
+    }
+
+    .projects {
+      padding: 100px 0 105px;
+    }
+
+    .section-head {
+      margin-bottom: 30px;
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .section-label {
+      margin-bottom: 12px;
+    }
+
+    h2 {
+      margin-bottom: 0;
+      font-size: clamp(42px, 6.5vw, 75px);
+      font-weight: 700;
+      letter-spacing: -.075em;
+      line-height: .96;
+    }
+
+    .section-description {
+      max-width: 280px;
+      margin: 0 0 4px;
+      font-size: 11px;
+      line-height: 1.7;
+    }
+
+    .project-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 22px;
+    }
+
+    .project-card {
+      min-width: 0;
+      padding: 10px;
+      border: 1px solid var(--ink);
+      background: var(--paper);
+      box-shadow: 5px 5px 0 rgba(16, 24, 25, .82);
+      transition: transform 160ms ease, box-shadow 160ms ease;
+    }
+
+    .project-card:hover {
+      transform: translate(-3px, -3px);
+      box-shadow: 8px 8px 0 var(--ink);
+    }
+
+    .project-image {
+      height: 230px;
+      position: relative;
+      overflow: hidden;
+      background: #c8d9d5;
+    }
+
+    .project-image img {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;
+      filter: saturate(.7);
+      transition: transform 300ms ease;
+    }
+
+    .project-card:hover .project-image img {
+      transform: scale(1.04);
+    }
+
+    .project-number {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      padding: 6px 8px;
+      background: var(--cyan);
+      font-family: var(--mono);
+      font-size: 9px;
+    }
+
+    .project-info {
+      padding: 17px 8px 8px;
+    }
+
+    .project-type {
+      margin-bottom: 7px;
+      color: #23686a;
+      font-size: 9px;
+    }
+
+    h3 {
+      margin-bottom: 7px;
+      font-size: 21px;
+      letter-spacing: -.7px;
+    }
+
+    .project-info p {
+      max-width: 480px;
+      margin-bottom: 16px;
+      color: #525b5b;
+      font-size: 11px;
+      line-height: 1.7;
+    }
+
+    .project-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+    }
+
+    .project-links a {
+      font-family: var(--mono);
+      font-size: 9px;
+      text-transform: uppercase;
+    }
+
+    .project-links a:hover {
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+
+    .project-links span {
+      margin-left: 4px;
+    }
+
+    .contact {
+      padding: 45px;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: center;
+      gap: 25px;
+      border: 1px solid var(--ink);
+      background: var(--ink);
+      color: var(--paper);
+    }
+
+    .contact .section-label {
+      color: var(--cyan);
+    }
+
+    .contact h2 {
+      font-size: clamp(38px, 5vw, 59px);
+    }
+
+    .contact-copy {
+      margin: 12px 0 0;
+      color: #c1ceca;
+      font-size: 11px;
+      line-height: 1.7;
+    }
+
+    .contact-actions {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 16px;
+    }
+
+    .contact-actions .button {
+      border-color: var(--cyan);
+      background: var(--cyan);
+      color: var(--ink);
+    }
+
+    .contact-actions .button:hover {
+      background: transparent;
+      color: var(--cyan);
+    }
+
+    .email {
+      font-family: var(--mono);
+      font-size: 10px;
+    }
+
+    .email:hover {
+      color: var(--cyan);
+    }
+
+    .socials {
+      display: flex;
+      gap: 13px;
+      color: #c1ceca;
+      font-family: var(--mono);
+      font-size: 9px;
+    }
+
+    footer {
+      min-height: 82px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 15px;
+      font-family: var(--mono);
+      font-size: 9px;
+    }
+
+    footer p {
+      margin: 0;
+    }
+
+    @media (max-width: 760px) {
+      .shell {
+        width: min(100% - 40px, 600px);
+      }
+
+      .hero {
+        min-height: 0;
+        padding: 62px 0 55px;
+        grid-template-columns: 1fr .82fr;
+        gap: 28px;
+      }
+
+      h1 {
+        font-size: clamp(75px, 12vw, 112px);
+      }
+
+      .portrait-frame {
+        height: 345px;
+      }
+
+      .project-image {
+        height: 190px;
+      }
+
+      .contact {
+        padding: 34px;
+      }
+    }
+
+    @media (max-width: 560px) {
+      .shell {
+        width: calc(100% - 36px);
+      }
+
+      .topbar {
+        min-height: 68px;
+      }
+
+      .nav {
+        gap: 14px;
+        font-size: 9px;
+      }
+
+      .nav-contact {
+        padding: 8px 9px;
+      }
+
+      .hero {
+        padding: 53px 0 42px;
+        grid-template-columns: 1fr;
+        gap: 34px;
+      }
+
+      h1 {
+        font-size: clamp(92px, 25vw, 138px);
+      }
+
+      .bio {
+        font-size: 13px;
+      }
+
+      .portrait-frame {
+        width: calc(100% - 13px);
+        height: 350px;
+        margin-right: 13px;
+      }
+
+      .skills {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 13px;
+      }
+
+      .skills-label {
+        max-width: none;
+      }
+
+      .skill-list {
+        justify-content: flex-start;
+      }
+
+      .projects {
+        padding: 75px 0 80px;
+      }
+
+      .section-head {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 13px;
+      }
+
+      .section-description {
+        max-width: 390px;
+      }
+
+      .project-grid {
+        grid-template-columns: 1fr;
+        gap: 19px;
+      }
+
+      .project-image {
+        height: clamp(205px, 62vw, 295px);
+      }
+
+      .contact {
+        padding: 30px 23px;
+        grid-template-columns: 1fr;
+        gap: 22px;
+      }
+
+      footer {
+        min-height: 74px;
+        flex-wrap: wrap;
+      }
+
+      footer p {
+        order: 1;
+        width: 100%;
+        padding-bottom: 12px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+
+      *,
+      *::before,
+      *::after {
+        transition-duration: .01ms !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar shell">
+    <a class="logo" href="#home" aria-label="Vishnu home">vishnu<span></span></a>
+    <nav class="nav" aria-label="Main navigation">
+      <a href="#projects">Projects</a>
+      <a href="#skills">Skills</a>
+      <a class="nav-contact" href="#contact">Contact ↘</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero shell" id="home">
+      <div>
+        <p class="kicker"><span class="live-dot"></span>Student · Creator · Always learning</p>
+        <h1>vishnu<span>PORTFOLIO / 2025—26</span></h1>
+        <p class="bio">Hi, I'm Vishnu. I'm studying at <strong>Christ College Irinjalakuda</strong> and learning how to bring ideas to life on the web. This is where I share what I'm making, the skills I'm building, and the things I'm curious about.</p>
+        <div class="hero-links">
+          <a class="button button-dark" href="#projects">See my projects <span aria-hidden="true">↓</span></a>
+          <a class="button" href="#contact">Get in touch <span aria-hidden="true">↗</span></a>
+        </div>
+      </div>
+      <figure class="portrait-frame">
+        <img src="./myphoto.jpeg" alt="Portrait photo representing Vishnu" fetchpriority="high">
+        <span class="portrait-stamp" aria-hidden="true">✳</span>
+        <figcaption class="portrait-note">BASED IN KERALA<br>OPEN TO IDEAS ↗</figcaption>
+      </figure>
+    </section>
+
+    <section class="skills shell" id="skills" aria-label="Skills">
+      <div class="skills-label">Currently learning / working with</div>
+      <div class="skill-list">
+        <span>HTML</span>
+        <span>CSS</span>
+        <span>JavaScript</span>
+        <span>Responsive design</span>
+        <span>Creative thinking</span>
+      </div>
+    </section>
+
+    <section class="projects shell" id="projects">
+      <div class="section-head">
+        <div>
+          <p class="section-label">A few things I've made / 01—04</p>
+          <h2>Learning by<br>making stuff.</h2>
+        </div>
+        <p class="section-description">Small projects, big lessons. Each one is a chance to try an idea, learn a new skill, and make the next thing better.</p>
+      </div>
+      <div class="project-grid">
+        <article class="project-card">
+          <a class="project-image" href="https://github.com/topics/portfolio-website" target="_blank" rel="noopener noreferrer" aria-label="Explore portfolio website projects on GitHub">
+            <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&amp;fit=crop&amp;w=1000&amp;q=85" alt="Web analytics and website design on a computer screen" loading="lazy">
+            <span class="project-number">PROJECT / 01</span>
+          </a>
+          <div class="project-info">
+            <p class="project-type">HTML · CSS · Responsive</p>
+            <h3>My first portfolio</h3>
+            <p>A personal corner of the web to introduce myself, share what I'm learning, and collect the projects I build along the way.</p>
+            <div class="project-links">
+              <a href="#contact">Ask me for a demo <span aria-hidden="true">↗</span></a>
+              <a href="https://github.com/topics/portfolio-website" target="_blank" rel="noopener noreferrer">GitHub examples <span aria-hidden="true">↗</span></a>
+            </div>
+          </div>
+        </article>
+
+        <article class="project-card">
+          <a class="project-image" href="https://github.com/topics/weather-app" target="_blank" rel="noopener noreferrer" aria-label="Explore weather app projects on GitHub">
+            <img src="https://images.unsplash.com/photo-1501630834273-4b5604d2ee31?auto=format&amp;fit=crop&amp;w=1000&amp;q=85" alt="Dramatic blue sky with soft clouds" loading="lazy">
+            <span class="project-number">PROJECT / 02</span>
+          </a>
+          <div class="project-info">
+            <p class="project-type">JavaScript · API</p>
+            <h3>Weather, at a glance</h3>
+            <p>A simple weather-app concept focused on clear forecasts, useful details, and a layout that works on a phone.</p>
+            <div class="project-links">
+              <a href="#contact">Ask me for a demo <span aria-hidden="true">↗</span></a>
+              <a href="https://github.com/topics/weather-app" target="_blank" rel="noopener noreferrer">GitHub examples <span aria-hidden="true">↗</span></a>
+            </div>
+          </div>
+        </article>
+
+        <article class="project-card">
+          <a class="project-image" href="https://github.com/topics/todo-app" target="_blank" rel="noopener noreferrer" aria-label="Explore to-do app projects on GitHub">
+            <img src="https://images.unsplash.com/photo-1455390582262-044cdead277a?auto=format&amp;fit=crop&amp;w=1000&amp;q=85" alt="Notebook and pen ready for planning and writing" loading="lazy">
+            <span class="project-number">PROJECT / 03</span>
+          </a>
+          <div class="project-info">
+            <p class="project-type">JavaScript · UI</p>
+            <h3>One thing at a time</h3>
+            <p>A lightweight task-list idea for organizing the day, checking off small wins, and keeping the interface distraction-free.</p>
+            <div class="project-links">
+              <a href="#contact">Ask me for a demo <span aria-hidden="true">↗</span></a>
+              <a href="https://github.com/topics/todo-app" target="_blank" rel="noopener noreferrer">GitHub examples <span aria-hidden="true">↗</span></a>
+            </div>
+          </div>
+        </article>
+
+        <article class="project-card">
+          <a class="project-image" href="https://github.com/topics/recipe-website" target="_blank" rel="noopener noreferrer" aria-label="Explore recipe website projects on GitHub">
+            <img src="https://images.unsplash.com/photo-1490645935967-10de6ba17061?auto=format&amp;fit=crop&amp;w=1000&amp;q=85" alt="Colorful fresh ingredients arranged for a recipe" loading="lazy">
+            <span class="project-number">PROJECT / 04</span>
+          </a>
+          <div class="project-info">
+            <p class="project-type">HTML · CSS · Layout</p>
+            <h3>A little recipe book</h3>
+            <p>A bright recipe-page design that makes ingredients easy to scan and gives each dish room to shine.</p>
+            <div class="project-links">
+              <a href="#contact">Ask me for a demo <span aria-hidden="true">↗</span></a>
+              <a href="https://github.com/topics/recipe-website" target="_blank" rel="noopener noreferrer">GitHub examples <span aria-hidden="true">↗</span></a>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="contact shell" id="contact">
+      <div>
+        <p class="section-label">Your turn / Say hello</p>
+        <h2>Got an idea?<br>Let's talk.</h2>
+        <p class="contact-copy">Have a project, suggestion, or just want to connect?<br>My inbox is open.</p>
+      </div>
+      <div class="contact-actions">
+        <a class="button" href="mailto:vishnu@example.com">Email Vishnu <span aria-hidden="true">↗</span></a>
+        <a class="email" href="mailto:vishnu@example.com">vishnu@example.com</a>
+        <div class="socials">
+          <a href="https://github.com/" target="_blank" rel="noopener noreferrer">GITHUB ↗</a>
+          <a href="https://www.linkedin.com/" target="_blank" rel="noopener noreferrer">LINKEDIN ↗</a>
+          <a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer">INSTAGRAM ↗</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="shell">
+    <a class="logo" href="#home">vishnu<span></span></a>
+    <p>MADE WITH CURIOSITY · © 2025 VISHNU</p>
+    <a href="#home">BACK TO TOP ↑</a>
+  </footer>
+</body>
+</html>

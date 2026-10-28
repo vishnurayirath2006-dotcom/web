@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="A colorful, ever-changing collection of places, people, and little moments worth keeping.">
+  <meta name="theme-color" content="#f5ff00">
+  <title>COLOR RIOT — A gallery for the curious</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <script src="gallery.js" defer></script>
+</head>
+<body>
+  <header class="site-header">
+    <a class="wordmark" href="#" aria-label="Color Riot home"><span class="wordmark-star" aria-hidden="true">✳</span> COLOR RIOT</a>
+    <nav class="site-nav" aria-label="Main navigation">
+      <a href="#gallery"></a>
+      <a href="#about"></a>
+    </nav>
+    <a class="header-note" href="#gallery">TopBin<span aria-hidden="true">↘</span></a>
+  </header>
+
+  <main>
+    <section class="intro" id="about">
+      <div class="intro-copy">
+        <p class="eyebrow"><span class="live-dot"></span> A visual playground / vol. 01</p>
+        <h1>LOOK<br>AT THE <span class="word-pop">WORLD<span class="title-spark" aria-hidden="true">✳</span></span><br>LOUDER.</h1>
+        <div class="intro-bottom">
+          <p>Color outside the lines.<br>Stay a little longer.</p>
+          <a class="scroll-link" href="#gallery">SCROLL TO EXPLORE <span aria-hidden="true">↓</span></a>
+        </div>
+      </div>
+      <div class="feature-wrap" role="region" aria-label="Featured slideshow">
+        <div class="feature-image" id="featureImage">
+          <img id="featuredPhoto" src="https://images.unsplash.com/photo-1531058020387-3be344556be6?auto=format&amp;fit=crop&amp;w=1400&amp;q=85" alt="Colorful lights filling an outdoor music festival">
+          <span class="feature-sticker">NO<br>BAD<br>VIEWS!</span>
+          <span class="feature-index" id="featureIndex">01 / 08</span>
+        </div>
+        <div class="feature-caption">
+          <div>
+            <p class="caption-label"></p>
+            <h2 id="featureTitle">Night moves</h2>
+          </div>
+          <div class="slideshow-controls" aria-label="Slideshow controls">
+            <button class="control-button autoplay-button" id="autoplayButton" type="button" aria-pressed="true" aria-label="Pause autoplay">
+              <span class="play-icon" aria-hidden="true">Ⅱ</span><span id="autoplayLabel">AUTO: ON</span>
+            </button>
+            <button class="control-button arrow-button" id="previousButton" type="button" aria-label="Previous image">←</button>
+            <button class="control-button arrow-button next-button" id="nextButton" type="button" aria-label="Next image">→</button>
+          </div>
+        </div>
+      </div>
+      <span class="side-note" aria-hidden="true">COLLECT THE MOMENT • KEEP THE COLOR • </span>
+    </section>
+
+    <section class="gallery-section" id="gallery">
+      <div class="gallery-heading">
+        <div>
+          <p class="eyebrow">A little bit of everything</p>
+          <h2>THE GOOD <span>STUFF.</span></h2>
+        </div>
+        <p class="gallery-aside">Eight frames. Zero rules.<br>Pick a picture, make a mood.</p>
+      </div>
+
+      <div class="filter-row" role="group" aria-label="Filter gallery by category">
+        <button class="filter-button is-active" type="button" data-filter="all" aria-pressed="true">ALL OF IT <span>08</span></button>
+        <button class="filter-button" type="button" data-filter="places" aria-pressed="false">PLACES <span>03</span></button>
+        <button class="filter-button" type="button" data-filter="color" aria-pressed="false">COLOR <span>03</span></button>
+        <button class="filter-button" type="button" data-filter="people" aria-pressed="false">PEOPLE <span>02</span></button>
+        <span class="grid-note"><span class="grid-spark" aria-hidden="true">✳</span> FRESH EYES ONLY</span>
+      </div>
+
+      <div class="photo-grid" id="photoGrid">
+        <button class="photo-card card-tall" type="button" data-index="0" data-category="color" aria-label="View Night moves">
+          <img src="https://images.unsplash.com/photo-1531058020387-3be344556be6?auto=format&amp;fit=crop&amp;w=900&amp;q=80" alt="A vivid outdoor music festival lit up at night" loading="lazy">
+          <span class="photo-overlay"><span>01 / COLOR</span><strong>Night moves</strong><span class="view-mark" aria-hidden="true">↗</span></span>
+        </button>
+        <button class="photo-card card-wide" type="button" data-index="1" data-category="places" aria-label="View Somewhere, slowly">
+          <img src="https://images.unsplash.com/photo-1519608487953-e999c86e7455?auto=format&amp;fit=crop&amp;w=1100&amp;q=80" alt="A dreamlike pink and violet sky above a quiet landscape" loading="lazy">
+          <span class="photo-overlay"><span>02 / PLACES</span><strong>Somewhere, slowly</strong><span class="view-mark" aria-hidden="true">↗</span></span>
+        </button>
+        <button class="photo-card card-square" type="button" data-index="2" data-category="color" aria-label="View Citrus season">
+          <img src="https://images.unsplash.com/photo-1547514701-42782101795e?auto=format&amp;fit=crop&amp;w=850&amp;q=80" alt="Bright oranges and citrus fruit in warm sunlight" loading="lazy">
+          <span class="photo-overlay"><span>03 / COLOR</span><strong>Citrus season</strong><span class="view-mark" aria-hidden="true">↗</span></span>
+        </button>
+        <button class="photo-card card-square" type="button" data-index="3" data-category="people" aria-label="View Main character energy">
+          <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&amp;fit=crop&amp;w=850&amp;q=80" alt="A sunlit portrait with a confident, joyful expression" loading="lazy">
+          <span class="photo-overlay"><span>04 / PEOPLE</span><strong>Main character energy</strong><span class="view-mark" aria-hidden="true">↗</span></span>
+        </button>
+        <button class="photo-card card-wide" type="button" data-index="4" data-category="places" aria-label="View The long way home">
+          <img src="https://images.unsplash.com/photo-1470770841072-f978cf4d019e?auto=format&amp;fit=crop&amp;w=1100&amp;q=80" alt="A peaceful mountain lake reflecting the landscape" loading="lazy">
+          <span class="photo-overlay"><span>05 / PLACES</span><strong>The long way home</strong><span class="view-mark" aria-hidden="true">↗</span></span>
+        </button>
+        <button class="photo-card card-square" type="button" data-index="5" data-category="color" aria-label="View Flower power">
+          <img src="https://images.unsplash.com/photo-1490750967868-88aa4486c946?auto=format&amp;fit=crop&amp;w=850&amp;q=80" alt="A joyful, saturated bunch of pink and orange flowers" loading="lazy">
+          <span class="photo-overlay"><span>06 / COLOR</span><strong>Flower power</strong><span class="view-mark" aria-hidden="true">↗</span></span>
+        </button>
+        <button class="photo-card card-square" type="button" data-index="6" data-category="people" aria-label="View Golden hour, always">
+          <img src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&amp;fit=crop&amp;w=850&amp;q=80" alt="A warm portrait in the late afternoon sunshine" loading="lazy">
+          <span class="photo-overlay"><span>07 / PEOPLE</span><strong>Golden hour, always</strong><span class="view-mark" aria-hidden="true">↗</span></span>
+        </button>
+        <button class="photo-card card-tall" type="button" data-index="7" data-category="places" aria-label="View Out there, somewhere">
+          <img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&amp;fit=crop&amp;w=900&amp;q=80" alt="A winding path through an expansive sunlit landscape" loading="lazy">
+          <span class="photo-overlay"><span>08 / PLACES</span><strong>Out there, somewhere</strong><span class="view-mark" aria-hidden="true">↗</span></span>
+        </button>
+      </div>
+    </section>
+
+    <section class="end-card" aria-label="Gallery sign-off">
+      <span class="end-star" aria-hidden="true">✳</span>
+      <p>TAKE THE<br>SCENIC ROUTE.</p>
+      <a href="#gallery">BACK TO THE TOP <span aria-hidden="true">↑</span></a>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <a class="wordmark" href="#" aria-label="Color Riot home"><span class="wordmark-star" aria-hidden="true">✳</span> COLOR RIOT</a>
+    <p>Made of good light &amp; loud color.</p>
+    <span>INDEPENDENTLY DAYDREAMING © 2025</span>
+  </footer>
+
+  <dialog class="lightbox" id="lightbox" aria-label="Image slideshow">
+    <div class="lightbox-content">
+      <button class="lightbox-close" id="closeLightbox" type="button" aria-label="Close slideshow">×</button>
+      <img id="lightboxPhoto" src="" alt="">
+      <div class="lightbox-bar">
+        <div><p id="lightboxCount">01 / 08</p><h2 id="lightboxTitle">Night moves</h2></div>
+        <div class="lightbox-controls">
+          <button class="control-button" id="lightboxAutoplay" type="button" aria-pressed="true" aria-label="Pause autoplay"><span class="play-icon" aria-hidden="true">Ⅱ</span><span>PAUSE</span></button>
+          <button class="control-button arrow-button" id="lightboxPrevious" type="button" aria-label="Previous image">←</button>
+          <button class="control-button arrow-button next-button" id="lightboxNext" type="button" aria-label="Next image">→</button>
+        </div>
+      </div>
+    </div>
+  </dialog>
+</body>
+</html>
