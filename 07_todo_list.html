@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Daycraft Tasks</title>
+    <style>
+        :root {
+            --navy: #263d63;
+            --navy-dark: #1d2f50;
+            --orange: #ef9c55;
+            --orange-dark: #df8340;
+            --paper: #ffffff;
+            --ink: #202c43;
+            --muted: #748098;
+            --line: #e8edf4;
+            --danger: #c65b4c;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            margin: 0;
+            font-family: Inter, "Segoe UI", Arial, sans-serif;
+            color: var(--ink);
+            background:
+                radial-gradient(circle at 15% 15%, rgba(255, 255, 255, 0.95), transparent 28rem),
+                linear-gradient(135deg, #f7f1e9, #e6efff);
+        }
+
+        .app {
+            width: min(760px, calc(100% - 32px));
+            margin: 55px auto;
+        }
+
+        .head {
+            padding: 32px 36px;
+            border-radius: 24px 24px 0 0;
+            color: white;
+            background: linear-gradient(135deg, var(--navy), var(--navy-dark));
+        }
+
+        .head small {
+            display: block;
+            margin-bottom: 10px;
+            color: #b8d2f6;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 3px;
+        }
+
+        .head h1 {
+            margin: 0 0 8px;
+            font-family: Georgia, "Times New Roman", serif;
+            font-size: clamp(34px, 7vw, 48px);
+            line-height: 1.05;
+        }
+
+        .head p {
+            margin: 0;
+            color: #dce7f7;
+        }
+
+        .panel {
+            padding: 26px;
+            border-radius: 0 0 24px 24px;
+            background: var(--paper);
+            box-shadow: 0 18px 45px rgba(39, 61, 99, 0.14);
+        }
+
+        .add {
+            display: flex;
+            gap: 10px;
+        }
+
+        .add input {
+            min-width: 0;
+            flex: 1;
+            padding: 14px 16px;
+            border: 1px solid #d8dfeb;
+            border-radius: 12px;
+            outline: none;
+            font-size: 15px;
+            transition: border-color 160ms, box-shadow 160ms;
+        }
+
+        .add input:focus {
+            border-color: #7da4d4;
+            box-shadow: 0 0 0 4px rgba(125, 164, 212, 0.16);
+        }
+
+        .add button {
+            padding: 0 22px;
+            border: 0;
+            border-radius: 12px;
+            color: white;
+            background: var(--orange);
+            font-weight: 800;
+            cursor: pointer;
+            transition: transform 150ms, background 150ms;
+        }
+
+        .add button:hover {
+            background: var(--orange-dark);
+            transform: translateY(-1px);
+        }
+
+        .stats {
+            display: flex;
+            justify-content: space-between;
+            margin: 20px 2px 14px;
+            color: var(--muted);
+            font-size: 13px;
+            font-weight: 700;
+        }
+
+        .task {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin: 9px 0;
+            padding: 14px;
+            border: 1px solid var(--line);
+            border-radius: 12px;
+            background: #fff;
+            transition: border-color 150ms, transform 150ms, background 150ms;
+        }
+
+        .task:hover {
+            border-color: #d7e0ed;
+            transform: translateX(2px);
+        }
+
+        .task span {
+            min-width: 0;
+            flex: 1;
+            overflow-wrap: anywhere;
+        }
+
+        .task.done {
+            background: #fafbfc;
+        }
+
+        .task.done span {
+            color: #9aa4b4;
+            text-decoration: line-through;
+        }
+
+        .task input {
+            width: 18px;
+            height: 18px;
+            accent-color: #398b75;
+            cursor: pointer;
+        }
+
+        .task button {
+            border: 0;
+            border-radius: 8px;
+            padding: 8px 11px;
+            color: var(--danger);
+            background: #fff0ed;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .task button:hover {
+            background: #ffe3de;
+        }
+
+        .empty {
+            padding: 32px 12px 24px;
+            color: #8994a7;
+            text-align: center;
+        }
+
+        .clear {
+            margin-top: 12px;
+            border: 0;
+            padding: 8px 2px;
+            color: var(--danger);
+            background: none;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .clear:disabled {
+            color: #b0b7c3;
+            cursor: default;
+        }
+
+        @media (max-width: 560px) {
+            .app {
+                width: min(100% - 20px, 760px);
+                margin: 20px auto;
+            }
+
+            .head {
+                padding: 26px 22px;
+                border-radius: 18px 18px 0 0;
+            }
+
+            .panel {
+                padding: 18px;
+                border-radius: 0 0 18px 18px;
+            }
+
+            .add {
+                flex-direction: column;
+            }
+
+            .add button {
+                min-height: 48px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <main class="app">
+        <header class="head">
+            <small>DAYCRAFT / PERSONAL PLANNER</small>
+            <h1>Make today count.</h1>
+            <p>Small steps. Real progress.</p>
+        </header>
+
+        <section class="panel" aria-label="Task planner">
+            <form id="form" class="add">
+                <input
+                    id="taskInput"
+                    type="text"
+                    placeholder="What needs to get done?"
+                    maxlength="100"
+                    autocomplete="off"
+                    required
+                >
+                <button type="submit">Add task +</button>
+            </form>
+
+            <div class="stats" aria-live="polite">
+                <span id="total">0 tasks</span>
+                <span id="progress">0 completed</span>
+            </div>
+
+            <div id="tasks"></div>
+            <button id="clear" class="clear" type="button">Clear completed tasks</button>
+        </section>
+    </main>
+
+    <script>
+        const KEY = "daycraft_tasks_v1";
+        const container = document.getElementById("tasks");
+        const clearButton = document.getElementById("clear");
+
+        let tasks = loadTasks();
+
+        function loadTasks() {
+            try {
+                const savedTasks = JSON.parse(localStorage.getItem(KEY) || "[]");
+                return Array.isArray(savedTasks) ? savedTasks : [];
+            } catch {
+                return [];
+            }
+        }
+
+        function save() {
+            localStorage.setItem(KEY, JSON.stringify(tasks));
+            render();
+        }
+
+        function escapeHTML(text) {
+            return text.replace(/[&<>"']/g, character => ({
+                "&": "&amp;",
+                "<": "&lt;",
+                ">": "&gt;",
+                '"': "&quot;",
+                "'": "&#39;"
+            })[character]);
+        }
+
+        function render() {
+            container.innerHTML = tasks.length
+                ? tasks.map(task => `
+                    <div class="task ${task.done ? "done" : ""}">
+                        <input
+                            type="checkbox"
+                            ${task.done ? "checked" : ""}
+                            aria-label="${task.done ? "Mark task incomplete" : "Mark task complete"}"
+                            onchange="toggleTask(${task.id})"
+                        >
+                        <span>${escapeHTML(task.text)}</span>
+                        <button
+                            type="button"
+                            onclick="deleteTask(${task.id})"
+                            aria-label="Delete task"
+                        >Delete</button>
+                    </div>
+                `).join("")
+                : '<div class="empty">Your list is clear. Add a task to get started ✨</div>';
+
+            const completedCount = tasks.filter(task => task.done).length;
+
+            document.getElementById("total").textContent =
+                `${tasks.length} task${tasks.length === 1 ? "" : "s"}`;
+            document.getElementById("progress").textContent =
+                `${completedCount} completed`;
+            clearButton.disabled = completedCount === 0;
+        }
+
+        document.getElementById("form").addEventListener("submit", event => {
+            event.preventDefault();
+
+            const input = document.getElementById("taskInput");
+            const text = input.value.trim();
+
+            if (!text) {
+                return;
+            }
+
+            tasks.unshift({
+                id: Date.now(),
+                text,
+                done: false
+            });
+            input.value = "";
+            save();
+            input.focus();
+        });
+
+        function toggleTask(id) {
+            tasks = tasks.map(task =>
+                task.id === id ? { ...task, done: !task.done } : task
+            );
+            save();
+        }
+
+        function deleteTask(id) {
+            tasks = tasks.filter(task => task.id !== id);
+            save();
+        }
+
+        clearButton.addEventListener("click", () => {
+            tasks = tasks.filter(task => !task.done);
+            save();
+        });
+
+        render();
+    </script>
+</body>
+</html>

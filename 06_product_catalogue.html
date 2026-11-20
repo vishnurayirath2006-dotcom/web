@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Nova Market | Catalogue</title>
+
+    <style>
+        :root {
+            --ink: #18213a;
+            --muted: #75809a;
+            --white: #ffffff;
+            --line: #d8dced;
+            --purple: #6547b8;
+            --green: #1b8b71;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Inter, "Segoe UI", Arial, sans-serif;
+            color: var(--ink);
+            background: #f3f5fb;
+        }
+
+        .hero {
+            padding: 42px 7%;
+            color: white;
+            background: linear-gradient(120deg, #151d45, var(--purple));
+        }
+
+        .hero-inner {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .brand {
+            font-size: 13px;
+            font-weight: 800;
+            letter-spacing: 3px;
+        }
+
+        .hero h1 {
+            margin: 10px 0 8px;
+            font-family: Georgia, "Times New Roman", serif;
+            font-size: clamp(34px, 6vw, 56px);
+            line-height: 1.05;
+        }
+
+        .hero p {
+            max-width: 620px;
+            margin: 0;
+            color: #d9d8ff;
+            font-size: 17px;
+        }
+
+        .wrap {
+            max-width: 1100px;
+            margin: 28px auto;
+            padding: 0 20px 40px;
+        }
+
+        .toolbar {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            padding: 18px;
+            border-radius: 16px;
+            background: var(--white);
+            box-shadow: 0 8px 25px rgba(32, 41, 90, 0.08);
+        }
+
+        .toolbar input,
+        .toolbar select {
+            min-width: 200px;
+            flex: 1;
+            padding: 13px 14px;
+            border: 1px solid var(--line);
+            border-radius: 9px;
+            outline: none;
+            font-size: 15px;
+            background: white;
+            transition: border-color 160ms, box-shadow 160ms;
+        }
+
+        .toolbar input:focus,
+        .toolbar select:focus {
+            border-color: #8771cf;
+            box-shadow: 0 0 0 4px rgba(101, 71, 184, 0.12);
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 18px;
+            margin-top: 16px;
+        }
+
+        .card {
+            overflow: hidden;
+            border: 1px solid rgba(216, 220, 237, 0.65);
+            border-radius: 16px;
+            background: var(--white);
+            box-shadow: 0 8px 25px rgba(32, 41, 90, 0.08);
+            transition: transform 180ms, box-shadow 180ms;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 14px 30px rgba(32, 41, 90, 0.13);
+        }
+
+        .art {
+            height: 145px;
+            display: grid;
+            place-items: center;
+            font-size: 60px;
+            background: linear-gradient(135deg, #e7e5ff, #d8f5f0);
+        }
+
+        .info {
+            padding: 17px;
+        }
+
+        .info h3 {
+            margin: 7px 0 6px;
+            font-size: 17px;
+        }
+
+        .tag {
+            color: #674fc0;
+            font-size: 12px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.6px;
+        }
+
+        .price {
+            color: var(--green);
+            font-size: 22px;
+            font-weight: 800;
+        }
+
+        .muted {
+            color: var(--muted);
+        }
+
+        .info .muted {
+            min-height: 40px;
+            margin: 0 0 12px;
+            line-height: 1.5;
+        }
+
+        #count {
+            margin: 18px 2px 0;
+            font-size: 13px;
+            font-weight: 700;
+        }
+
+        .empty {
+            grid-column: 1 / -1;
+            padding: 45px;
+            color: var(--muted);
+            text-align: center;
+        }
+
+        @media (max-width: 560px) {
+            .hero {
+                padding: 32px 20px;
+            }
+
+            .wrap {
+                margin-top: 16px;
+                padding: 0 12px 28px;
+            }
+
+            .toolbar {
+                padding: 12px;
+            }
+
+            .toolbar input,
+            .toolbar select {
+                min-width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="hero">
+        <div class="hero-inner">
+            <div class="brand">✦ NOVA MARKET</div>
+            <h1>Find your next favourite.</h1>
+            <p>Explore a hand-picked collection of everyday essentials and smart upgrades.</p>
+        </div>
+    </header>
+
+    <main class="wrap">
+        <div class="toolbar" aria-label="Product filters">
+            <input
+                id="search"
+                type="search"
+                placeholder="Search products by name..."
+                aria-label="Search products"
+            >
+            <select id="category" aria-label="Filter by category">
+                <option value="all">All categories</option>
+                <option>Electronics</option>
+                <option>Fashion</option>
+                <option>Home</option>
+                <option>Accessories</option>
+            </select>
+        </div>
+
+        <p id="count" class="muted" aria-live="polite"></p>
+        <section id="products" class="grid" aria-label="Product catalogue"></section>
+    </main>
+
+    <script>
+        const products = [
+            {
+                name: "Studio Headphones",
+                price: 2499,
+                category: "Electronics",
+                icon: "🎧",
+                desc: "Immersive sound with cushioned comfort."
+            },
+            {
+                name: "Smart Watch",
+                price: 3299,
+                category: "Electronics",
+                icon: "⌚",
+                desc: "Track your day and stay connected."
+            },
+            {
+                name: "Everyday Backpack",
+                price: 1499,
+                category: "Fashion",
+                icon: "🎒",
+                desc: "A durable companion for daily journeys."
+            },
+            {
+                name: "Classic Sneakers",
+                price: 2199,
+                category: "Fashion",
+                icon: "👟",
+                desc: "Comfort meets a clean modern look."
+            },
+            {
+                name: "Desk Lamp",
+                price: 899,
+                category: "Home",
+                icon: "💡",
+                desc: "Warm adjustable light for focused work."
+            },
+            {
+                name: "Ceramic Planter",
+                price: 499,
+                category: "Home",
+                icon: "🪴",
+                desc: "Bring a little green into your space."
+            },
+            {
+                name: "Travel Bottle",
+                price: 699,
+                category: "Accessories",
+                icon: "🥤",
+                desc: "Reusable, lightweight and easy to carry."
+            },
+            {
+                name: "Minimal Wallet",
+                price: 799,
+                category: "Accessories",
+                icon: "👛",
+                desc: "Keep your essentials neatly organised."
+            }
+        ];
+
+        const list = document.getElementById("products");
+        const search = document.getElementById("search");
+        const category = document.getElementById("category");
+
+        function render() {
+            const query = search.value.trim().toLowerCase();
+            const selectedCategory = category.value;
+
+            const found = products.filter(product => {
+                const matchesSearch =
+                    product.name.toLowerCase().includes(query) ||
+                    product.desc.toLowerCase().includes(query);
+                const matchesCategory =
+                    selectedCategory === "all" ||
+                    product.category === selectedCategory;
+
+                return matchesSearch && matchesCategory;
+            });
+
+            document.getElementById("count").textContent =
+                `Showing ${found.length} of ${products.length} products`;
+
+            list.innerHTML = found.length
+                ? found.map(product => `
+                    <article class="card">
+                        <div class="art">${product.icon}</div>
+                        <div class="info">
+                            <div class="tag">${product.category}</div>
+                            <h3>${product.name}</h3>
+                            <p class="muted">${product.desc}</p>
+                            <div class="price">
+                                ₹${product.price.toLocaleString("en-IN")}
+                            </div>
+                        </div>
+                    </article>
+                `).join("")
+                : '<div class="empty">No matching products. Try another search or category.</div>';
+        }
+
+        search.addEventListener("input", render);
+        category.addEventListener("change", render);
+        render();
+    </script>
+</body>
+</html>

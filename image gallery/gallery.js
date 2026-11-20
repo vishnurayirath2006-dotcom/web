@@ -51,6 +51,7 @@ const slides = [
 
 const featuredPhoto = document.querySelector("#featuredPhoto");
 const featureTitle = document.querySelector("#featureTitle");
+const featureCategory = document.querySelector("#featureCategory");
 const featureIndex = document.querySelector("#featureIndex");
 const lightbox = document.querySelector("#lightbox");
 const lightboxPhoto = document.querySelector("#lightboxPhoto");
@@ -69,7 +70,7 @@ const autoplayButtons = [
 ];
 
 let currentIndex = 0;
-let autoplay = true;
+let autoplay = !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 let lastFocusedCard = null;
 
 function showSlide(index) {
@@ -80,6 +81,7 @@ function showSlide(index) {
   featuredPhoto.src = slide.src;
   featuredPhoto.alt = slide.alt;
   featureTitle.textContent = slide.title;
+  featureCategory.textContent = slide.category;
   featureIndex.textContent = count;
 
   lightboxPhoto.src = slide.src;
@@ -118,6 +120,7 @@ document.querySelector("#lightboxNext").addEventListener("click", () => showSlid
 autoplayButtons.forEach(({ button }) => {
   button.addEventListener("click", () => setAutoplay(!autoplay));
 });
+setAutoplay(autoplay);
 
 photoCards.forEach((card) => {
   card.addEventListener("click", () => openLightbox(Number(card.dataset.index), card));

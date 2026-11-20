@@ -282,6 +282,7 @@ h1 {
 .caption-label {
   margin: 0 0 5px;
   color: #77727d;
+  text-transform: uppercase;
 }
 
 .feature-caption h2 {
@@ -431,6 +432,7 @@ h1 {
   vertical-align: -2px;
 }
 
+/* Gallery grid layout: four columns with dense placement for varied card sizes. */
 .photo-grid {
   display: grid;
   grid-auto-rows: 190px;
@@ -458,6 +460,7 @@ h1 {
   transition: transform 420ms cubic-bezier(.2, .7, .2, 1), filter 300ms ease;
 }
 
+/* Card hover/focus effect: zoom and boost image saturation, then reveal the overlay. */
 .photo-card:hover img,
 .photo-card:focus-visible img {
   filter: saturate(1.15);

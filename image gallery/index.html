@@ -14,12 +14,12 @@
 </head>
 <body>
   <header class="site-header">
-    <a class="wordmark" href="#" aria-label="Color Riot home"><span class="wordmark-star" aria-hidden="true">✳</span> COLOR RIOT</a>
+    <a class="wordmark" href="#about" aria-label="Color Riot home"><span class="wordmark-star" aria-hidden="true">✳</span> COLOR RIOT</a>
     <nav class="site-nav" aria-label="Main navigation">
-      <a href="#gallery"></a>
-      <a href="#about"></a>
+      <a href="#about">About</a>
+      <a href="#gallery">Gallery</a>
     </nav>
-    <a class="header-note" href="#gallery">TopBin<span aria-hidden="true">↘</span></a>
+    <a class="header-note" href="#about">Back to top<span aria-hidden="true">↗</span></a>
   </header>
 
   <main>
@@ -40,9 +40,10 @@
         </div>
         <div class="feature-caption">
           <div>
-            <p class="caption-label"></p>
+            <p class="caption-label" id="featureCategory"></p>
             <h2 id="featureTitle">Night moves</h2>
           </div>
+          <!-- Slideshow buttons: autoplay toggle, previous image, and next image. -->
           <div class="slideshow-controls" aria-label="Slideshow controls">
             <button class="control-button autoplay-button" id="autoplayButton" type="button" aria-pressed="true" aria-label="Pause autoplay">
               <span class="play-icon" aria-hidden="true">Ⅱ</span><span id="autoplayLabel">AUTO: ON</span>
@@ -72,6 +73,7 @@
         <span class="grid-note"><span class="grid-spark" aria-hidden="true">✳</span> FRESH EYES ONLY</span>
       </div>
 
+      <!-- Gallery grid: selectable photo cards, filtered by the category buttons above. -->
       <div class="photo-grid" id="photoGrid">
         <button class="photo-card card-tall" type="button" data-index="0" data-category="color" aria-label="View Night moves">
           <img src="https://images.unsplash.com/photo-1531058020387-3be344556be6?auto=format&amp;fit=crop&amp;w=900&amp;q=80" alt="A vivid outdoor music festival lit up at night" loading="lazy">
@@ -87,7 +89,7 @@
         </button>
         <button class="photo-card card-square" type="button" data-index="3" data-category="people" aria-label="View Main character energy">
           <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&amp;fit=crop&amp;w=850&amp;q=80" alt="A sunlit portrait with a confident, joyful expression" loading="lazy">
-          <span class="photo-overlay"><span>04 / PEOPLE</span><strong>Main character energy</strong><span class="view-mark" aria-hidden="true">↗</span></span>
+          <span class="photo-overlay"><span>04 / PEOPLE</span><strong>Mai-n character energy</strong><span class="view-mark" aria-hidden="true">↗</span></span>
         </button>
         <button class="photo-card card-wide" type="button" data-index="4" data-category="places" aria-label="View The long way home">
           <img src="https://images.unsplash.com/photo-1470770841072-f978cf4d019e?auto=format&amp;fit=crop&amp;w=1100&amp;q=80" alt="A peaceful mountain lake reflecting the landscape" loading="lazy">
@@ -116,7 +118,7 @@
   </main>
 
   <footer class="site-footer">
-    <a class="wordmark" href="#" aria-label="Color Riot home"><span class="wordmark-star" aria-hidden="true">✳</span> COLOR RIOT</a>
+    <a class="wordmark" href="#about" aria-label="Color Riot home"><span class="wordmark-star" aria-hidden="true">✳</span> COLOR RIOT</a>
     <p>Made of good light &amp; loud color.</p>
     <span>INDEPENDENTLY DAYDREAMING © 2025</span>
   </footer>
@@ -127,6 +129,7 @@
       <img id="lightboxPhoto" src="" alt="">
       <div class="lightbox-bar">
         <div><p id="lightboxCount">01 / 08</p><h2 id="lightboxTitle">Night moves</h2></div>
+        <!-- Slideshow buttons: autoplay toggle, previous image, and next image. -->
         <div class="lightbox-controls">
           <button class="control-button" id="lightboxAutoplay" type="button" aria-pressed="true" aria-label="Pause autoplay"><span class="play-icon" aria-hidden="true">Ⅱ</span><span>PAUSE</span></button>
           <button class="control-button arrow-button" id="lightboxPrevious" type="button" aria-label="Previous image">←</button>

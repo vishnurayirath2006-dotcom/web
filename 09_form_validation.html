@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Form Validation Studio</title>
+
+    <style>
+        :root {
+            --ink: #202a43;
+            --white: #ffffff;
+            --teal: #1e7772;
+            --teal-dark: #176760;
+            --line: #d8dfeb;
+            --error: #c44747;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Inter, "Segoe UI", Arial, sans-serif;
+            color: var(--ink);
+            background: #f2f4f9;
+        }
+
+        .shell {
+            min-height: 100vh;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+        }
+
+        .visual {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 9%;
+            color: white;
+            background: linear-gradient(145deg, #122d45, #257c79);
+        }
+
+        .visual h1 {
+            max-width: 620px;
+            margin: 16px 0 18px;
+            font-family: Georgia, "Times New Roman", serif;
+            font-size: clamp(35px, 5vw, 60px);
+            line-height: 1.05;
+        }
+
+        .visual p {
+            max-width: 420px;
+            margin: 0;
+            color: #c9e6e2;
+            line-height: 1.7;
+        }
+
+        .eyebrow {
+            color: #9ed1cb;
+            font-size: 12px;
+            font-weight: 800;
+            letter-spacing: 2px;
+        }
+
+        .formside {
+            display: grid;
+            place-items: center;
+            padding: 25px;
+        }
+
+        .card {
+            width: min(440px, 100%);
+            padding: 32px;
+            border-radius: 20px;
+            background: var(--white);
+            box-shadow: 0 15px 50px rgba(23, 47, 74, 0.1);
+        }
+
+        .tabs {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 25px;
+        }
+
+        .tabs button {
+            flex: 1;
+            padding: 12px;
+            border: 0;
+            border-radius: 9px;
+            background: #edf1f5;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background 150ms, color 150ms;
+        }
+
+        .tabs .active {
+            color: white;
+            background: var(--teal);
+        }
+
+        h2 {
+            margin: 0 0 4px;
+            font-size: 24px;
+        }
+
+        label {
+            display: block;
+            margin: 15px 0 7px;
+            font-size: 13px;
+            font-weight: 800;
+        }
+
+        input {
+            width: 100%;
+            padding: 13px;
+            border: 1px solid var(--line);
+            border-radius: 9px;
+            outline: none;
+            font-size: 15px;
+            transition: border-color 150ms, box-shadow 150ms;
+        }
+
+        input:focus {
+            border-color: #23867d;
+            box-shadow: 0 0 0 4px rgba(35, 134, 125, 0.13);
+        }
+
+        .error {
+            min-height: 15px;
+            margin-top: 5px;
+            color: var(--error);
+            font-size: 12px;
+        }
+
+        .submit {
+            width: 100%;
+            margin-top: 15px;
+            padding: 14px;
+            border: 0;
+            border-radius: 10px;
+            color: white;
+            background: var(--teal);
+            font-weight: 800;
+            cursor: pointer;
+            transition: background 150ms, transform 150ms;
+        }
+
+        .submit:hover {
+            background: var(--teal-dark);
+            transform: translateY(-1px);
+        }
+
+        .success {
+            display: none;
+            margin-top: 15px;
+            padding: 12px;
+            border-radius: 9px;
+            color: #16785d;
+            background: #e9f8f0;
+            line-height: 1.45;
+        }
+
+        @media (max-width: 750px) {
+            .shell {
+                grid-template-columns: 1fr;
+            }
+
+            .visual {
+                min-height: 280px;
+                padding: 35px 24px;
+            }
+
+            .visual h1 {
+                margin: 12px 0;
+                font-size: clamp(34px, 11vw, 48px);
+            }
+
+            .formside {
+                padding: 18px 12px 28px;
+            }
+
+            .card {
+                padding: 24px 18px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <main class="shell">
+        <section class="visual">
+            <div class="eyebrow">VERIFIED ACCESS / 01</div>
+            <h1>Your next chapter starts here.</h1>
+            <p>
+                Register or sign in with confidence. This demo checks your details
+                in the browser and provides instant feedback before submission.
+            </p>
+        </section>
+
+        <section class="formside">
+            <div class="card">
+                <div class="tabs" aria-label="Account mode">
+                    <button id="regTab" type="button" class="active">Register</button>
+                    <button id="loginTab" type="button">Login</button>
+                </div>
+
+                <h2 id="formTitle">Create account</h2>
+
+                <form id="form" novalidate>
+                    <div id="nameGroup">
+                        <label for="name">Full name</label>
+                        <input id="name" type="text" placeholder="Your name" autocomplete="name">
+                        <div class="error" id="nameErr"></div>
+                    </div>
+
+                    <label for="email">Email address</label>
+                    <input
+                        id="email"
+                        type="email"
+                        placeholder="you@example.com"
+                        autocomplete="email"
+                    >
+                    <div class="error" id="emailErr"></div>
+
+                    <label for="password">Password</label>
+                    <input
+                        id="password"
+                        type="password"
+                        placeholder="At least 8 characters"
+                        autocomplete="current-password"
+                    >
+                    <div class="error" id="passErr"></div>
+
+                    <button class="submit" type="submit">Create account</button>
+                    <div id="success" class="success" aria-live="polite"></div>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        let mode = "register";
+        const get = id => document.getElementById(id);
+
+        function setMode(next) {
+            mode = next;
+
+            get("regTab").classList.toggle("active", mode === "register");
+            get("loginTab").classList.toggle("active", mode === "login");
+            get("nameGroup").style.display = mode === "register" ? "block" : "none";
+            get("formTitle").textContent =
+                mode === "register" ? "Create account" : "Welcome back";
+            document.querySelector(".submit").textContent =
+                mode === "register" ? "Create account" : "Sign in";
+            get("password").placeholder =
+                mode === "register" ? "At least 8 characters" : "At least 6 characters";
+            get("success").style.display = "none";
+            clearErrors();
+        }
+
+        function clearErrors() {
+            ["nameErr", "emailErr", "passErr"].forEach(id => {
+                get(id).textContent = "";
+            });
+        }
+
+        get("regTab").addEventListener("click", () => setMode("register"));
+        get("loginTab").addEventListener("click", () => setMode("login"));
+
+        get("form").addEventListener("submit", event => {
+            event.preventDefault();
+            clearErrors();
+            get("success").style.display = "none";
+
+            let valid = true;
+            const name = get("name").value.trim();
+            const email = get("email").value.trim();
+            const password = get("password").value;
+
+            if (mode === "register" && name.length < 2) {
+                get("nameErr").textContent =
+                    "Please enter your name (at least 2 characters).";
+                valid = false;
+            }
+
+            if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) {
+                get("emailErr").textContent = "Enter a valid email address.";
+                valid = false;
+            }
+
+            const invalidPassword = mode === "register"
+                ? password.length < 8 ||
+                  !/[A-Za-z]/.test(password) ||
+                  !/[0-9]/.test(password)
+                : password.length < 6;
+
+            if (invalidPassword) {
+                get("passErr").textContent = mode === "register"
+                    ? "Use 8+ characters with at least one letter and one number."
+                    : "Password must contain at least 6 characters.";
+                valid = false;
+            }
+
+            if (valid) {
+                get("success").textContent = mode === "register"
+                    ? "Registration details look good! Demo only — no account was created."
+                    : "Login details passed client-side checks. Demo only — no sign-in occurred.";
+                get("success").style.display = "block";
+            }
+        });
+    </script>
+</body>
+</html>

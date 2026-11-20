@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Curio Quiz</title>
+
+    <style>
+        :root {
+            --page: #171b35;
+            --card: #252a4d;
+            --surface: #30365d;
+            --line: #555b83;
+            --text: #f7f4ff;
+            --muted: #b8b6d9;
+            --accent: #f3ad65;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            margin: 0;
+            padding: 35px 18px;
+            font-family: Inter, "Segoe UI", Arial, sans-serif;
+            color: var(--text);
+            background:
+                radial-gradient(circle at 10% 10%, rgba(83, 91, 150, 0.22), transparent 22rem),
+                var(--page);
+        }
+
+        .wrap {
+            max-width: 760px;
+            margin: auto;
+        }
+
+        .top {
+            display: flex;
+            justify-content: space-between;
+            color: var(--muted);
+            font-size: 12px;
+            font-weight: 800;
+            letter-spacing: 2px;
+        }
+
+        .card {
+            margin-top: 25px;
+            padding: clamp(22px, 5vw, 42px);
+            border: 1px solid #41466d;
+            border-radius: 22px;
+            background: var(--card);
+            box-shadow: 0 20px 55px rgba(8, 11, 32, 0.55);
+        }
+
+        .counter {
+            color: var(--muted);
+            font-size: 12px;
+            font-weight: 800;
+            letter-spacing: 1.5px;
+        }
+
+        .bar {
+            height: 8px;
+            margin: 12px 0 20px;
+            overflow: hidden;
+            border-radius: 9px;
+            background: #41466d;
+        }
+
+        .bar div {
+            height: 100%;
+            width: 0;
+            border-radius: inherit;
+            background: var(--accent);
+            transition: width 300ms ease;
+        }
+
+        .question {
+            margin: 0 0 18px;
+            font-family: Georgia, "Times New Roman", serif;
+            font-size: clamp(24px, 5vw, 30px);
+            line-height: 1.35;
+        }
+
+        .option {
+            display: block;
+            width: 100%;
+            margin: 12px 0;
+            padding: 16px;
+            border: 1px solid var(--line);
+            border-radius: 12px;
+            color: white;
+            background: var(--surface);
+            font-size: 15px;
+            text-align: left;
+            cursor: pointer;
+            transition: border-color 150ms, background 150ms, transform 150ms;
+        }
+
+        .option:hover {
+            transform: translateX(3px);
+            border-color: #7e85ab;
+        }
+
+        .option.selected {
+            border-color: var(--accent);
+            background: #45405b;
+            box-shadow: inset 4px 0 0 var(--accent);
+        }
+
+        .actions {
+            display: flex;
+            justify-content: space-between;
+            gap: 12px;
+            margin-top: 25px;
+        }
+
+        .actions button,
+        .try-again {
+            min-height: 44px;
+            padding: 12px 22px;
+            border: 0;
+            border-radius: 10px;
+            color: #27233b;
+            background: var(--accent);
+            font-weight: 800;
+            cursor: pointer;
+            transition: filter 150ms, transform 150ms;
+        }
+
+        .actions button:hover,
+        .try-again:hover {
+            filter: brightness(1.06);
+            transform: translateY(-1px);
+        }
+
+        .actions button:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .result {
+            text-align: center;
+        }
+
+        .score {
+            margin: 12px 0 4px;
+            color: var(--accent);
+            font-size: clamp(52px, 12vw, 64px);
+            font-weight: 800;
+        }
+
+        .review {
+            margin: 10px 0;
+            padding: 14px;
+            border-radius: 10px;
+            background: var(--surface);
+            text-align: left;
+        }
+
+        .review p {
+            margin: 8px 0 0;
+        }
+
+        .good {
+            color: #82dfb5;
+        }
+
+        .bad {
+            color: #ff9e9e;
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 22px 12px;
+            }
+
+            .top {
+                font-size: 10px;
+            }
+
+            .actions {
+                flex-direction: column-reverse;
+            }
+
+            .actions button {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <main class="wrap">
+        <div class="top">
+            <span>CURIO / KNOWLEDGE CLUB</span>
+            <span>QUIZ 01</span>
+        </div>
+
+        <section class="card">
+            <div id="quiz">
+                <div id="counter" class="counter"></div>
+                <div class="bar" aria-label="Quiz progress">
+                    <div id="fill"></div>
+                </div>
+                <h2 id="question" class="question"></h2>
+                <div id="options"></div>
+
+                <div class="actions">
+                    <button id="back" type="button">Previous</button>
+                    <button id="next" type="button">Next question →</button>
+                </div>
+            </div>
+
+            <div id="result" class="result" hidden></div>
+        </section>
+    </main>
+
+    <script>
+        const questions = [
+            {
+                q: "Which language runs natively in a web browser?",
+                o: ["Python", "JavaScript", "C", "Java"],
+                a: 1
+            },
+            {
+                q: "Which HTML element is used for the largest heading?",
+                o: ["<h6>", "<head>", "<h1>", "<header>"],
+                a: 2
+            },
+            {
+                q: "What does CSS mainly control?",
+                o: ["Page styling and layout", "Database storage", "Server security", "File compression"],
+                a: 0
+            },
+            {
+                q: "Which method converts JSON text into a JavaScript object?",
+                o: ["JSON.stringify()", "JSON.parse()", "Object.toJSON()", "parseHTML()"],
+                a: 1
+            },
+            {
+                q: "Which keyword declares a block-scoped variable that can be reassigned?",
+                o: ["const", "let", "static", "define"],
+                a: 1
+            }
+        ];
+
+        let index = 0;
+        const answers = Array(questions.length).fill(null);
+        const get = id => document.getElementById(id);
+
+        function render() {
+            const question = questions[index];
+
+            get("counter").textContent =
+                `QUESTION ${index + 1} OF ${questions.length}`;
+            get("fill").style.width =
+                `${((index + 1) / questions.length) * 100}%`;
+            get("question").textContent = question.q;
+
+            get("options").innerHTML = question.o
+                .map((option, optionIndex) => `
+                    <button
+                        type="button"
+                        class="option ${answers[index] === optionIndex ? "selected" : ""}"
+                        data-i="${optionIndex}"
+                    >
+                        ${String.fromCharCode(65 + optionIndex)}.
+                        ${option.replace(/</g, "&lt;").replace(/>/g, "&gt;")}
+                    </button>
+                `)
+                .join("");
+
+            document.querySelectorAll(".option").forEach(button => {
+                button.addEventListener("click", () => {
+                    answers[index] = Number(button.dataset.i);
+                    render();
+                });
+            });
+
+            get("back").disabled = index === 0;
+            get("next").textContent =
+                index === questions.length - 1
+                    ? "Submit quiz"
+                    : "Next question →";
+        }
+
+        get("back").addEventListener("click", () => {
+            if (index > 0) {
+                index--;
+                render();
+            }
+        });
+
+        get("next").addEventListener("click", () => {
+            if (answers[index] === null) {
+                alert("Please select an answer first.");
+                return;
+            }
+
+            if (index < questions.length - 1) {
+                index++;
+                render();
+            } else {
+                showResult();
+            }
+        });
+
+        function showResult() {
+            const score = questions.filter(
+                (question, questionIndex) =>
+                    answers[questionIndex] === question.a
+            ).length;
+
+            get("quiz").hidden = true;
+            get("result").hidden = false;
+            get("result").innerHTML = `
+                <h2>Quiz complete!</h2>
+                <div class="score">${score}/${questions.length}</div>
+                <h3>${score === 5 ? "Excellent work!" : score >= 3 ? "Good effort!" : "Keep practising!"}</h3>
+                <p>You answered ${score} correctly and ${questions.length - score} incorrectly.</p>
+                ${questions.map((question, questionIndex) => `
+                    <div class="review">
+                        <b>${questionIndex + 1}. ${question.q}</b>
+                        <p class="${answers[questionIndex] === question.a ? "good" : "bad"}">
+                            Your answer:
+                            ${answers[questionIndex] === null
+                                ? "Not answered"
+                                : question.o[answers[questionIndex]]}
+                        </p>
+                        <p class="good">
+                            Correct answer: ${question.o[question.a]}
+                        </p>
+                    </div>
+                `).join("")}
+                <button type="button" class="try-again" onclick="location.reload()">
+                    Try again
+                </button>
+            `;
+        }
+
+        render();
+    </script>
+</body>
+</html>
