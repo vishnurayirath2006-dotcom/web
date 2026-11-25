@@ -1,0 +1,4 @@
+{% extends "base.html" %}{% block content %}<section class="card"><h2>Welcome back</h2><form method="post"><input type="hidden" name="csrf" value="{{ csrf_token() }}">
+<div><label>Username or email</label><input name="identity" required autocomplete="username"></div>
+<div><label>Password</label><input type="password" name="password" required autocomplete="current-password"></div>
+<button>Log in</button></form><p class="muted">New here? <a href="{{ url_for('register') }}">Create an account</a>.</p></section>{% endblock %}

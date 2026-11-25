@@ -1,0 +1,1 @@
+{% extends "base.html" %}{% block content %}<section class="card"><h2>Hello, {{ username }}!</h2><p>You are logged in. Your session keeps you signed in while you use this browser.</p><form method="post" action="{{ url_for('logout') }}"><input type="hidden" name="csrf" value="{{ csrf_token() }}"><button class="danger">Log out</button></form></section>{% endblock %}

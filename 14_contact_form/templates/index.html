@@ -1,0 +1,5 @@
+{% extends "base.html" %}{% block content %}<section class="card"><h2>Send us a message</h2><form method="post">
+<div><label for="name">Name</label><input id="name" name="name" maxlength="80" required autocomplete="name" value="{{ request.form.get('name','') }}"></div>
+<div><label for="email">Email</label><input id="email" type="email" name="email" maxlength="120" required autocomplete="email" value="{{ request.form.get('email','') }}"></div>
+<div><label for="message">Message</label><textarea id="message" name="message" maxlength="2000" required>{{ request.form.get('message','') }}</textarea></div>
+<button type="submit">Submit message</button></form></section>{% endblock %}

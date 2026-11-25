@@ -1,0 +1,1 @@
+Contact Form\n\nRun from this folder after installing Flask:\n  py app.py\n\nThen open http://127.0.0.1:5000 in your browser.\nThe SQLite database is created automatically.
